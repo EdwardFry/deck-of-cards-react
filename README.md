@@ -1,4 +1,4 @@
-# Try out at (will take some time to boot from cold start): https://deck-of-cards-react.herokuapp.com/
+# Try out at: https://deck-of-cards-react.herokuapp.com/ (will take some time to boot from cold start)
 
 # Getting Started with Create React App
 
