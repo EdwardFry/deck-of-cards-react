@@ -1,24 +1,49 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import { Layout } from 'antd';
 
-function App() {
+import HeaderNav from './components/Header';
+import CardCounter from './components/CardCounter';
+import SnapOutput from './components/SnapOutput';
+import CardPlaces from './components/CardPlaces';
+import ButtonOrResult from './components/ButtonOrResult';
+import FooterNav from './components/Footer';
+
+import { apiCall } from './logic/apiCall';
+import { checkAndSetSnap } from './logic/checkAndSetSnap';
+
+
+const App = () => {
+  const [deckMetaData, setDeckMetaData] = useState({
+    deck_id: "new",
+    remaining: 52
+  })
+  const [cards, setCards] = useState([])
+  const [valueMatches, setValueMatches] = useState(0)
+  const [suitMatches, setSuitMatches] = useState(0)
+  const [snap, setSnap] = useState({
+    snap: false,
+    type: ""
+  })
+
+
+  const handleCheckAndSetSnap = (card1, card2) => {
+    checkAndSetSnap(card1, card2, suitMatches, valueMatches, setSuitMatches, setValueMatches, setSnap)
+  }
+
+  const drawCard = () => {
+    apiCall(deckMetaData, cards, setCards, setDeckMetaData, handleCheckAndSetSnap)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout style={{background: "url('https://images.pexels.com/photos/2508565/pexels-photo-2508565.jpeg?cs=srgb&dl=pexels-dids-2508565.jpg&fm=jpg')", backgroundSize: "cover", backgroundPosition: 2}}>
+      <HeaderNav />
+      <CardCounter deckMetaData={deckMetaData}/>
+      <SnapOutput snap={snap} />
+      <CardPlaces snap={snap} cards={cards}/>
+      <ButtonOrResult deckMetaData={deckMetaData} drawCard={drawCard} valueMatches={valueMatches} suitMatches={suitMatches}/>
+      <FooterNav />
+    </Layout>
   );
 }
 
