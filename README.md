@@ -1,5 +1,3 @@
-# Try out at: https://deck-of-cards-react.herokuapp.com/ (will take some time to boot from cold start)
-
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
